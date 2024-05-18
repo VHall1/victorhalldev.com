@@ -15,8 +15,8 @@
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",
     "isbot": "^4.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^19.0.0-rc-3f1436cca1-20240516",
+    "react-dom": "^19.0.0-rc-3f1436cca1-20240516"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",
