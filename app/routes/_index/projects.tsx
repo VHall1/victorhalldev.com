@@ -1,7 +1,11 @@
+import { Link } from "@remix-run/react";
+import { ExternalLinkIcon } from "lucide-react";
+import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardTitle,
 } from "~/components/ui/card";
 
@@ -9,16 +13,35 @@ export function Projects() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {projects.map((project) => (
-        <Card key={`projects-${project.source}`}>
+        <Card
+          key={`projects-${project.source}`}
+          className="transition-all hover:scale-[1.02] hover:shadow-md"
+        >
           <img
             src={project.image}
-            className="aspect-[16/10] rounded-t-lg pb-4"
+            className="aspect-[16/10] rounded-t-lg"
             alt=""
           />
-          <CardContent>
+          <CardContent className="py-4">
             <CardTitle>{project.name}</CardTitle>
-            <CardDescription>{project.description}</CardDescription>
+            <CardDescription className="mt-2">
+              {project.description}
+            </CardDescription>
           </CardContent>
+          <CardFooter className="flex gap-1.5">
+            <Button size="sm" asChild>
+              <Link to={project.demo} className="flex items-center gap-1.5">
+                Demo
+                <ExternalLinkIcon className="h-3 w-3" />
+              </Link>
+            </Button>
+            <Button size="sm" variant="outline" asChild>
+              <Link to={project.source} className="flex items-center gap-1.5">
+                Source
+                <ExternalLinkIcon className="h-3 w-3" />
+              </Link>
+            </Button>
+          </CardFooter>
         </Card>
       ))}
     </div>
