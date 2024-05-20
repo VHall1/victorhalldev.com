@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/VHall1/remix-portfolio/main/content/projects/schema.json",
+  "$schema": "https://raw.githubusercontent.com/VHall1/remix-portfolio/main/content/projects/$schema.json",
   "title": "Remix Weather",
   "description": "Simple weather app. Built with Remix and OpenWeatherMap.",
   "demo": "https://weather.victorhalldev.com",
