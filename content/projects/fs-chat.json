@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/VHall1/remix-portfolio/main/content/projects/$schema.json",
+  "title": "🔥 FS Chat",
+  "description": "Chat with others in real-time. Built with React, TypeScript, WebSockets and Ruby on Rails. Hosted on Vercel.",
+  "demo": "https://app.fs-chat.dev/",
+  "source": "https://github.com/VHall1/fs-chat",
+  "image": "/fs-chat.png"
+}

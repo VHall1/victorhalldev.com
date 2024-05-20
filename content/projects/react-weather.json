@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/VHall1/remix-portfolio/main/content/projects/$schema.json",
+  "title": "⛅ React Weather",
+  "description": "Simple weather app. Built with React and OpenWeatherMap. Hosted on Netlify.",
+  "demo": "https://vigilant-leakey-c36a17.netlify.app/",
+  "source": "https://github.com/VHall1/react-weather",
+  "image": "/weather.png"
+}

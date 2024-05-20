@@ -1,0 +1,7 @@
+{
+  "$schema": "https://raw.githubusercontent.com/VHall1/remix-portfolio/main/content/projects/$schema.json",
+  "title": "Todo List",
+  "description": "Simple todo list app. Built with React, Vite, Redux and Tailwind. Tested with Cypress.",
+  "demo": "https://stackblitz.com/edit/vitejs-vite-bxxnm7",
+  "source": "https://stackblitz.com/edit/vitejs-vite-bxxnm7"
+}
