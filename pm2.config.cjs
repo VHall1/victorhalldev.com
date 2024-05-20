@@ -8,7 +8,7 @@ module.exports = {
       watch: false,
       env: {
         PORT: process.env.PORT,
-        GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+        CONTENT_GITHUB_TOKEN: process.env.CONTENT_GITHUB_TOKEN,
       },
     },
   ],

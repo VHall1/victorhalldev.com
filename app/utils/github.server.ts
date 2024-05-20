@@ -7,7 +7,7 @@ const safePath = (s: string) => s.replace(/\\/g, "/");
 const Octokit = createOctokit.plugin(restEndpointMethods, throttling);
 
 const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
+  auth: process.env.CONTENT_GITHUB_TOKEN,
   throttle: {
     onRateLimit: (retryAfter, options) => {
       const method = "method" in options ? options.method : "METHOD_UNKNOWN";
