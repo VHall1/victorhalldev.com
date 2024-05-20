@@ -44,7 +44,12 @@ export default function Index() {
             </h2>
           </div>
           <Suspense fallback={<p>Loading projects...</p>}>
-            <Await resolve={projects}>
+            <Await
+              resolve={projects}
+              errorElement={
+                <p className="text-destructive">failed to load projects</p>
+              }
+            >
               {(resolvedProjects) => (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {resolvedProjects.map((rawProject) => {
