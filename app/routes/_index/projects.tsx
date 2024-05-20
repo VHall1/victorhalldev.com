@@ -17,7 +17,12 @@ export function Projects() {
           key={`projects-${project.source}`}
           className="transition-all hover:scale-[1.02] hover:shadow-md overflow-hidden"
         >
-          <img src={project.image} className="aspect-[16/10]" alt="" />
+          <img
+            src={project.image}
+            className="aspect-[16/10]"
+            loading="lazy"
+            alt=""
+          />
           <CardContent className="py-4">
             <CardTitle>{project.name}</CardTitle>
             <CardDescription className="mt-2">
