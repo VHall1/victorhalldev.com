@@ -1,7 +1,11 @@
+if (!process.env.GITHUB_REPOSITORY) {
+  throw "GITHUB_REPOSITORY not defined!";
+}
+
 module.exports = {
   apps: [
     {
-      name: "remix-portfolio",
+      name: process.env.GITHUB_REPOSITORY,
       script: "npm",
       args: "start",
       autorestart: true,
