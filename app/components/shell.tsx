@@ -26,12 +26,6 @@ export function Shell({ children }: { children: ReactNode }) {
           >
             Projects
           </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            to="#"
-          >
-            Contact
-          </Link>
         </nav>
         <Sheet>
           <SheetTrigger asChild>
@@ -59,12 +53,6 @@ export function Shell({ children }: { children: ReactNode }) {
                 to="/#projects"
               >
                 Projects
-              </Link>
-              <Link
-                className="text-sm font-medium hover:underline underline-offset-4"
-                to="#"
-              >
-                Contact
               </Link>
             </div>
           </SheetContent>
