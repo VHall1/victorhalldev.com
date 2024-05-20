@@ -39,7 +39,7 @@ jobs:
 
       - name: Start pm2
         env:
-          GITHUB_REPOSITORY: ${{ $GITHUB_REPOSITORY }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
           CONTENT_GITHUB_TOKEN: ${{ secrets.CONTENT_GITHUB_TOKEN }}
           PORT: ${{ secrets.PORT }}
         run: |
