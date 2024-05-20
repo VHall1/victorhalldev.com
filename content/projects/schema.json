@@ -14,7 +14,8 @@
       "type": "string"
     },
     "image": {
-      "type": "string"
+      "type": "string",
+      "optional": true
     }
   }
 }
