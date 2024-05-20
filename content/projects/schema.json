@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/VHall1/remix-portfolio/main/content/projects/schema",
+  "$schema": "https://raw.githubusercontent.com/VHall1/remix-portfolio/main/content/projects/schema.json",
   "properties": {
     "title": {
       "type": "string"
