@@ -34,8 +34,8 @@ export function Shell({ children }: { children: ReactNode }) {
           </Link>
         </nav>
         <Sheet>
-          <SheetTrigger className="md:hidden">
-            <Button size="icon" variant="outline">
+          <SheetTrigger asChild>
+            <Button size="icon" variant="outline" className="md:hidden">
               <MenuIcon className="h-6 w-6" />
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
