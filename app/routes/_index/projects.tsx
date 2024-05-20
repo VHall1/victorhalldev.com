@@ -15,13 +15,9 @@ export function Projects() {
       {projects.map((project) => (
         <Card
           key={`projects-${project.source}`}
-          className="transition-all hover:scale-[1.02] hover:shadow-md"
+          className="transition-all hover:scale-[1.02] hover:shadow-md overflow-hidden"
         >
-          <img
-            src={project.image}
-            className="aspect-[16/10] rounded-t-lg"
-            alt=""
-          />
+          <img src={project.image} className="aspect-[16/10]" alt="" />
           <CardContent className="py-4">
             <CardTitle>{project.name}</CardTitle>
             <CardDescription className="mt-2">
