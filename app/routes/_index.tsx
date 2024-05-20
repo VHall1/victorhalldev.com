@@ -1,3 +1,4 @@
+import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Await, Link, defer, useLoaderData } from "@remix-run/react";
 import { ExternalLinkIcon } from "lucide-react";
 import { Suspense } from "react";
@@ -42,12 +43,11 @@ export default function Index() {
               My Projects
             </h2>
           </div>
-          <Suspense fallback={<p>loading...</p>}>
+          <Suspense fallback={<p>Loading projects...</p>}>
             <Await resolve={projects}>
               {(resolvedProjects) => (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {resolvedProjects.map((rawProject) => {
-                    console.log(rawProject);
                     const parsedProject = JSON.parse(rawProject.content) as {
                       title: string;
                       description: string;
@@ -105,7 +105,10 @@ export default function Index() {
   );
 }
 
-export async function loader() {
-  const projects = downloadCMSFiles("projects");
+export async function loader({ context }: LoaderFunctionArgs) {
+  const projects = downloadCMSFiles(
+    "projects",
+    context.cloudflare.env.GITHUB_TOKEN
+  );
   return defer({ projects });
 }

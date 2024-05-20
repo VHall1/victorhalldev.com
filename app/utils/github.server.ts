@@ -6,45 +6,54 @@ const safePath = (s: string) => s.replace(/\\/g, "/");
 
 const Octokit = createOctokit.plugin(restEndpointMethods, throttling);
 
-const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
-  throttle: {
-    onRateLimit: (retryAfter, options) => {
-      const method = "method" in options ? options.method : "METHOD_UNKNOWN";
-      const url = "url" in options ? options.url : "URL_UNKNOWN";
-      console.warn(
-        `Request quota exhausted for request ${method} ${url}. Retrying after ${retryAfter} seconds.`
-      );
+function getClient(token?: string) {
+  return new Octokit({
+    auth: token,
+    throttle: {
+      onRateLimit: (retryAfter, options) => {
+        const method = "method" in options ? options.method : "METHOD_UNKNOWN";
+        const url = "url" in options ? options.url : "URL_UNKNOWN";
+        console.warn(
+          `Request quota exhausted for request ${method} ${url}. Retrying after ${retryAfter} seconds.`
+        );
 
-      return true;
+        return true;
+      },
+      onSecondaryRateLimit: (_, options) => {
+        const method = "method" in options ? options.method : "METHOD_UNKNOWN";
+        const url = "url" in options ? options.url : "URL_UNKNOWN";
+        // does not retry, only logs a warning
+        console.warn(`Abuse detected for request ${method} ${url}`);
+      },
     },
-    onSecondaryRateLimit: (_, options) => {
-      const method = "method" in options ? options.method : "METHOD_UNKNOWN";
-      const url = "url" in options ? options.url : "URL_UNKNOWN";
-      // does not retry, only logs a warning
-      octokit.log.warn(`Abuse detected for request ${method} ${url}`);
-    },
-  },
-});
+  });
+}
 
-export async function downloadCMSFiles(relativeFileOrDirectory: string) {
-  const files = await downloadDirectory(`content/${relativeFileOrDirectory}`);
+export async function downloadCMSFiles(
+  relativeFileOrDirectory: string,
+  token?: string
+) {
+  const files = await downloadDirectory(
+    `content/${relativeFileOrDirectory}`,
+    token
+  );
   return files.filter(({ path }) => !path.endsWith("$schema.json"));
 }
 
 async function downloadDirectory(
-  dir: string
+  dir: string,
+  token?: string
 ): Promise<{ path: string; content: string }[]> {
-  const dirList = await downloadDirList(dir);
+  const dirList = await downloadDirList(dir, token);
   const result = await Promise.all(
     dirList.map(async ({ path: fileDir, type, sha }) => {
       switch (type) {
         case "file": {
-          const content = await downloadFileBySha(sha);
+          const content = await downloadFileBySha(sha, token);
           return { path: safePath(fileDir), content };
         }
         case "dir": {
-          return downloadDirectory(fileDir);
+          return downloadDirectory(fileDir, token);
         }
         default: {
           throw new Error(`Unexpected repo file type: ${type}`);
@@ -56,8 +65,8 @@ async function downloadDirectory(
   return result.flat();
 }
 
-async function downloadFileBySha(sha: string) {
-  const { data } = await octokit.rest.git.getBlob({
+async function downloadFileBySha(sha: string, token?: string) {
+  const { data } = await getClient(token).rest.git.getBlob({
     owner: "vhall1",
     repo: "remix-portfolio",
     file_sha: sha,
@@ -66,15 +75,12 @@ async function downloadFileBySha(sha: string) {
   return Buffer.from(data.content, encoding).toString();
 }
 
-async function downloadDirList(path: string) {
-  const resp = await octokit.rest.repos.getContent({
+async function downloadDirList(path: string, token?: string) {
+  const resp = await getClient(token).rest.repos.getContent({
     owner: "vhall1",
     repo: "remix-portfolio",
     ref: "main",
     path,
-    headers: {
-      "Cache-Control": "max-age: 3600",
-    },
   });
   const data = resp.data;
 
