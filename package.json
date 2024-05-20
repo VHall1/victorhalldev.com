@@ -5,14 +5,10 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "deploy": "npm run build && wrangler pages deploy",
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "wrangler pages dev ./build/client",
-    "typecheck": "tsc",
-    "typegen": "wrangler types",
-    "preview": "npm run build && wrangler pages dev",
-    "cf-typegen": "wrangler types"
+    "start": "remix-serve ./build/server/index.js",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^9.5.0",
@@ -23,6 +19,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
+    "@remix-run/serve": "^2.9.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "isbot": "^4.1.0",
