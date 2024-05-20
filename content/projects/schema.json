@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/VHall1/remix-portfolio/main/content/projects/schema",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "demo": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    }
+  }
+}
