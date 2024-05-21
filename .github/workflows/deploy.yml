@@ -10,12 +10,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  runs-on: self-hosted
-  strategy:
-    matrix:
-      os: [ubuntu-latest]
   changes:
     name: 🔎 Determine deployable changes
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
     outputs:
       DEPLOYABLE: ${{ steps.changes.outputs.DEPLOYABLE }}
     steps:
@@ -38,6 +38,10 @@ jobs:
 
   lint:
     name: ⬣ ESLint
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
     needs: [changes]
     if: needs.changes.outputs.DEPLOYABLE == 'true'
     steps:
@@ -57,6 +61,10 @@ jobs:
 
   typecheck:
     name: ʦ TypeScript
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
     needs: [changes]
     if: needs.changes.outputs.DEPLOYABLE == 'true'
     steps:
@@ -76,6 +84,10 @@ jobs:
 
   deploy:
     name: 🚀 Deploy
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
     needs: [changes, lint, typecheck]
     if: ${{ (github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.changes.outputs.DEPLOYABLE == 'true' }}
     steps:
