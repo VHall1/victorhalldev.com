@@ -51,7 +51,7 @@ jobs:
           node-version: 21
 
       - name: 📥 Download deps
-        uses: npm ci
+        run: npm ci
 
       - name: 🔬 Lint
         run: npm run lint
@@ -70,7 +70,7 @@ jobs:
           node-version: 21
 
       - name: 📥 Download deps
-        uses: npm ci
+        run: npm ci
 
       - name: 🔎 Type check
         run: npm run typecheck
@@ -95,7 +95,7 @@ jobs:
           node-version: 21
 
       - name: 📥 Download deps
-        uses: npm ci
+        run: npm ci
 
       - name: 💿 Build remix
         run: npm run build
