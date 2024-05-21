@@ -9,12 +9,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-runs-on: self-hosted
-strategy:
-  matrix:
-    os: [ubuntu-latest]
-
 jobs:
+  runs-on: self-hosted
+  strategy:
+    matrix:
+      os: [ubuntu-latest]
   changes:
     name: 🔎 Determine deployable changes
     outputs:
