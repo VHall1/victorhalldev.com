@@ -3,10 +3,11 @@ on:
   push:
     branches:
       - main
-runs-on: self-hosted
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+runs-on:
+  group: self-hosted
+  strategy:
+    matrix:
+      os: [ubuntu-latest]
 
 # Cancel previous in-flight deployments
 concurrency:
@@ -77,8 +78,7 @@ jobs:
   deploy:
     name: 🚀 Deploy
     needs: [changes, lint, typecheck]
-    if:
-      ${{ (github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.changes.outputs.DEPLOYABLE == 'true' }}
+    if: ${{ (github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.changes.outputs.DEPLOYABLE == 'true' }}
     steps:
       - name: 📢 Discord notification
         env:
