@@ -5,7 +5,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useMatches,
 } from "@remix-run/react";
+import type { CustomHandle } from "types";
 import tailwindStyles from "./styles/tailwind.css?url";
 
 export const links: LinksFunction = () => [
@@ -14,6 +16,11 @@ export const links: LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const matches = useMatches();
+  const disableScripts = matches.some(
+    (match) => (match.handle as CustomHandle | undefined)?.hydrate === false
+  );
+
   return (
     <html lang="en">
       <head>
@@ -26,7 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <ScrollRestoration />
-        <Scripts />
+        {disableScripts ? null : <Scripts />}
       </body>
     </html>
   );
