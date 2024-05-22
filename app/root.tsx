@@ -12,7 +12,10 @@ import tailwindStyles from "./styles/tailwind.css?url";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStyles },
-  { rel: "icon", href: "./favicon.png" },
+  {
+    rel: "icon",
+    href: "https://res.cloudinary.com/davlbxibi/image/upload/v1716409614/remix-portfolio/byw1g36xmmfgv1di8m5h.png",
+  },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
