@@ -1,43 +1,121 @@
-name: Deploy
-
+name: 🚀 Deploy
 on:
   push:
     branches:
       - main
 
+# Cancel previous in-flight deployments
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  changes:
+    name: 🔎 Determine deployable changes
     runs-on: self-hosted
     strategy:
       matrix:
         os: [ubuntu-latest]
-
+    outputs:
+      DEPLOYABLE: ${{ steps.changes.outputs.DEPLOYABLE }}
     steps:
-      - name: Send discord notification
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+
+      - name: 🔎 Determine deployable changes
+        id: changes
+        run: >-
+          echo ::set-output name=DEPLOYABLE::$(node ./other/is-deployable.js ${{ github.sha }})
+
+      - name: ❓ Deployable
+        run: >-
+          echo "DEPLOYABLE: ${{ steps.changes.outputs.DEPLOYABLE }}"
+
+  lint:
+    name: ⬣ ESLint
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    needs: [changes]
+    if: needs.changes.outputs.DEPLOYABLE == 'true'
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+
+      - name: 📥 Download deps
+        run: npm ci
+
+      - name: 🔬 Lint
+        run: npm run lint
+
+  typecheck:
+    name: ʦ TypeScript
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    needs: [changes]
+    if: needs.changes.outputs.DEPLOYABLE == 'true'
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+
+      - name: 📥 Download deps
+        run: npm ci
+
+      - name: 🔎 Type check
+        run: npm run typecheck
+
+  deploy:
+    name: 🚀 Deploy
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    needs: [changes, lint, typecheck]
+    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.changes.outputs.DEPLOYABLE == 'true' }}
+    steps:
+      - name: 📢 Discord notification
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
           curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\":\"\",\"tts\":false,\"embeds\":[{\"description\":\"Started a new deploy to [$GITHUB_REPOSITORY](https://github.com/$GITHUB_REPOSITORY)\",\"color\":2326507,\"fields\":[],\"author\":{\"name\":\"$GITHUB_ACTOR\",\"url\":\"https://github.com/$GITHUB_ACTOR\",\"icon_url\":\"https://github.com/$GITHUB_ACTOR.png\"},\"footer\":{\"text\":\"$GITHUB_REPOSITORY\",\"icon_url\":\"https://github.com/github.png\"}}],\"components\":[],\"actions\":{}}" $WEBHOOK_URL
 
-      - name: Checkout repository
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: ⎔ Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: "21"
+          node-version: 21
 
-      - name: Install dependencies
+      - name: 📥 Download deps
         run: npm ci
 
-      - name: Build remix
+      - name: 💿 Build remix
         run: npm run build
 
-      - name: Stop existing pm2 instances
+      - name: 🧹 Clear pm2 instances
         run: |
           pm2 delete $GITHUB_REPOSITORY || true
 
-      - name: Start pm2
+      - name: ⬆ Start pm2
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           CONTENT_GITHUB_TOKEN: ${{ secrets.CONTENT_GITHUB_TOKEN }}
@@ -45,12 +123,12 @@ jobs:
         run: |
           pm2 start pm2.config.cjs
 
-      - name: Send discord notification
+      - name: 📢 Discord notification
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
           curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data "{\"content\":\"\",\"tts\":false,\"embeds\":[{\"description\":\"Successfully deployed to [$GITHUB_REPOSITORY](https://github.com/$GITHUB_REPOSITORY)\",\"color\":65280,\"fields\":[],\"author\":{\"name\":\"$GITHUB_ACTOR\",\"url\":\"https://github.com/$GITHUB_ACTOR\",\"icon_url\":\"https://github.com/$GITHUB_ACTOR.png\"},\"footer\":{\"text\":\"$GITHUB_REPOSITORY\",\"icon_url\":\"https://github.com/github.png\"}}],\"components\":[],\"actions\":{}}" $WEBHOOK_URL
 
-      - name: Cleanup
+      - name: 💾 Save pm2 changes
         run: |
           pm2 save
