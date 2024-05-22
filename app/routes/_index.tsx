@@ -50,7 +50,7 @@ export default function Index() {
               }
             >
               {(resolvedProjects) => (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   {resolvedProjects.map((rawProject) => {
                     const parsedProject = JSON.parse(rawProject.content) as {
                       title: string;
@@ -62,21 +62,22 @@ export default function Index() {
                     return (
                       <Card
                         key={`projects-${parsedProject.source}`}
-                        className="transition-all hover:scale-[1.02] hover:shadow-md overflow-hidden"
+                        className="transition-all hover:scale-[1.02] hover:shadow-md overflow-hidden flex flex-col"
                       >
-                        <img
-                          src={parsedProject.image}
-                          className="aspect-[16/10]"
-                          loading="lazy"
-                          alt=""
-                        />
+                        {parsedProject.image ? (
+                          <img
+                            src={parsedProject.image}
+                            className="aspect-[16/10]"
+                            alt=""
+                          />
+                        ) : null}
                         <CardContent className="py-4">
                           <CardTitle>{parsedProject.title}</CardTitle>
                           <CardDescription className="mt-2">
                             {parsedProject.description}
                           </CardDescription>
                         </CardContent>
-                        <CardFooter className="flex gap-1.5">
+                        <CardFooter className="mt-auto flex gap-1.5">
                           <Button size="sm" asChild>
                             <Link
                               to={parsedProject.demo}
