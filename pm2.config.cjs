@@ -12,6 +12,7 @@ module.exports = {
       watch: false,
       env: {
         PORT: process.env.PORT,
+        SESSION_SECRET: process.env.SESSION_SECRET,
         CONTENT_GITHUB_TOKEN: process.env.CONTENT_GITHUB_TOKEN,
       },
     },

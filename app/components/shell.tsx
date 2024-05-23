@@ -1,11 +1,16 @@
 import { SiGithub, SiLinkedin } from "@icons-pack/react-simple-icons";
-import { Link } from "@remix-run/react";
-import { CodeIcon, MenuIcon } from "lucide-react";
+import { Link, useFetcher, useRouteLoaderData } from "@remix-run/react";
+import { CodeIcon, MenuIcon, MoonIcon, SunIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import type { loader } from "~/root";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 
 export function Shell({ children }: { children: ReactNode }) {
+  const themeFetcher = useFetcher();
+  const rootLoaderData = useRouteLoaderData<typeof loader>("root");
+  const isDarkMode = rootLoaderData?.theme === "dark";
+
   return (
     <>
       <header className="sticky top-0 z-50 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex items-center justify-between px-4 py-3 md:px-6 md:py-4">
@@ -64,21 +69,44 @@ export function Shell({ children }: { children: ReactNode }) {
           <p className="text-sm text-accent-foreground">
             Made with ♥️ by Victor Hall
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center">
             <Link
-              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50"
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50 mr-4"
               to="https://github.com/vhall1"
             >
               <SiGithub className="h-5 w-5" />
               <span className="sr-only">GitHub</span>
             </Link>
             <Link
-              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50"
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50 mr-1"
               to="https://linkedin.com/in/vhall1/"
             >
               <SiLinkedin className="h-5 w-5" />
               <span className="sr-only">LinkedIn</span>
             </Link>
+            <themeFetcher.Form
+              method="post"
+              action="/action/set-theme"
+              preventScrollReset
+            >
+              <input
+                type="hidden"
+                name="nextTheme"
+                value={isDarkMode ? "light" : "dark"}
+              />
+              <Button
+                size="icon"
+                variant="link"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50"
+                type="submit"
+              >
+                {isDarkMode ? (
+                  <MoonIcon className="h-5 w-5" />
+                ) : (
+                  <SunIcon className="h-5 w-5" />
+                )}
+              </Button>
+            </themeFetcher.Form>
           </div>
         </div>
       </footer>
