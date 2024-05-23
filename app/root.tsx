@@ -40,6 +40,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="description"
+          content="Hey, I'm Victor. I'm a Full Stack Developer and a React enthusiast"
+        />
         <title>Victor Hall</title>
         <Meta />
         <Links />
