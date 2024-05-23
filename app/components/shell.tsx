@@ -7,9 +7,12 @@ import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 
 export function Shell({ children }: { children: ReactNode }) {
-  const themeFetcher = useFetcher();
+  const themeFetcher = useFetcher({ key: "theme" });
   const rootLoaderData = useRouteLoaderData<typeof loader>("root");
-  const isDarkMode = rootLoaderData?.theme === "dark";
+  const theme =
+    themeFetcher?.formData?.get("nextTheme")?.toString() ??
+    rootLoaderData?.theme;
+  const isDarkMode = theme === "dark";
 
   return (
     <>

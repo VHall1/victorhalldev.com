@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useFetchers,
   useMatches,
   useRouteLoaderData,
 } from "@remix-run/react";
@@ -22,12 +23,17 @@ export const links: LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const loaderData = useRouteLoaderData<typeof loader>("root");
-  const theme = loaderData?.theme;
+  // disables hydration if route handle includes { hydrate: false }
   const matches = useMatches();
   const disableScripts = matches.some(
     (match) => (match.handle as CustomHandle | undefined)?.hydrate === false
   );
+
+  // get theme from loader or optimisically get value from theme fetcher (if available)
+  const loaderData = useRouteLoaderData<typeof loader>("root");
+  const themeFetcher = useFetchers().find((fetcher) => fetcher.key === "theme");
+  const theme =
+    themeFetcher?.formData?.get("nextTheme")?.toString() ?? loaderData?.theme;
 
   return (
     <html lang="en">
