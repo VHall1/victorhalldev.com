@@ -71,6 +71,7 @@ export default function Index() {
                             alt=""
                             width={433}
                             height={270}
+                            loading="lazy"
                           />
                         ) : null}
                         <CardContent className="py-4">
