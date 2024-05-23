@@ -69,6 +69,8 @@ export default function Index() {
                             src={parsedProject.image}
                             className="aspect-[16/10]"
                             alt=""
+                            width={433}
+                            height={270}
                           />
                         ) : null}
                         <CardContent className="py-4">
