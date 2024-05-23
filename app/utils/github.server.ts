@@ -115,7 +115,12 @@ async function downloadDirList(path: string) {
           `GitHub did not return an array of files while trying to download content from ${path}.`
         );
       }
-      return data;
+      // costs a lil more to get fresh but saves cache space
+      return data.map(({ path, type, sha }) => ({
+        path,
+        type,
+        sha,
+      }));
     },
   });
 }
