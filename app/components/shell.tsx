@@ -102,6 +102,7 @@ export function Shell({ children }: { children: ReactNode }) {
                 variant="link"
                 className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50"
                 type="submit"
+                aria-label="toggle colour scheme"
               >
                 {isDarkMode ? (
                   <MoonIcon className="h-5 w-5" />
