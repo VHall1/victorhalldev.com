@@ -26,10 +26,8 @@ export async function getTheme(request: Request) {
   return session.get("theme");
 }
 
-export function isValidTheme(
-  theme: string
-): theme is (typeof themeKeys)[number] {
-  return themeKeys.includes(theme as (typeof themeKeys)[number]);
+export function isValidTheme(theme: string): theme is Theme {
+  return themeKeys.includes(theme as Theme);
 }
 
 export { commitSession, destroySession, getSession };
