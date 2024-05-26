@@ -84,6 +84,8 @@ async function downloadFileBySha(sha: string) {
   return cachified({
     key: `file-${sha}`,
     cache: lru,
+    // 15 minutes
+    ttl: 1000 * 60 * 5,
     async getFreshValue() {
       const { data } = await octokit.rest.git.getBlob({
         owner: "vhall1",
@@ -93,8 +95,6 @@ async function downloadFileBySha(sha: string) {
       const encoding = data.encoding as Parameters<typeof Buffer.from>["1"];
       return Buffer.from(data.content, encoding).toString();
     },
-    // 15 minutes
-    ttl: 900_000,
   });
 }
 
@@ -102,6 +102,8 @@ async function downloadDirList(path: string) {
   return cachified({
     key: `dir-${path}`,
     cache: lru,
+    // 60 minutes
+    ttl: 1000 * 60 * 60,
     async getFreshValue() {
       const resp = await octokit.rest.repos.getContent({
         owner: "vhall1",
