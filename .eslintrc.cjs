@@ -78,7 +78,7 @@ module.exports = {
 
     // Node
     {
-      files: [".eslintrc.cjs", "./other/*.js"],
+      files: [".eslintrc.cjs", "pm2.config.cjs", "./other/*.js"],
       env: {
         node: true,
       },
