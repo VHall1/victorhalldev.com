@@ -34,8 +34,8 @@
     "tiny-invariant": "^1.3.3"
   },
   "overrides": {
-    "react": "19.0.0-rc-3f1436cca1-20240516",
-    "react-dom": "19.0.0-rc-3f1436cca1-20240516"
+    "react": "$react",
+    "react-dom": "$react-dom"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",
