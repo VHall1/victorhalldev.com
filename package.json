@@ -9,6 +9,7 @@
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern /app/components/ui/ --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "wrangler dev ./server.js",
+    "tail": "wrangler tail",
     "typecheck": "tsc",
     "typegen": "wrangler types"
   },
