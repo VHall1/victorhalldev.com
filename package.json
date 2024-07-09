@@ -18,9 +18,9 @@
     "@octokit/plugin-throttling": "^9.3.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
-    "@remix-run/node": "^2.9.2",
-    "@remix-run/react": "^2.9.2",
-    "@remix-run/serve": "^2.9.2",
+    "@remix-run/node": "^2.10.2",
+    "@remix-run/react": "^2.10.2",
+    "@remix-run/serve": "^2.10.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "isbot": "^4.1.0",
@@ -38,7 +38,7 @@
     "react-dom": "$react-dom"
   },
   "devDependencies": {
-    "@remix-run/dev": "^2.9.2",
+    "@remix-run/dev": "^2.10.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
