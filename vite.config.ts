@@ -4,9 +4,14 @@ import {
 } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { getLoadContext } from "./load-context";
 
 export default defineConfig({
-  plugins: [cloudflareDevProxyVitePlugin(), remix(), tsconfigPaths()],
+  plugins: [
+    cloudflareDevProxyVitePlugin({ getLoadContext }),
+    remix(),
+    tsconfigPaths(),
+  ],
   ssr: {
     resolve: {
       conditions: ["workerd", "worker", "browser"],

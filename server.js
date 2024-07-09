@@ -1,8 +1,7 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { createRequestHandler } from "@remix-run/cloudflare";
-import github from "~/utils/github.server";
-import session from "~/utils/session.server";
 import * as remixBuild from "./build/server";
+import { getLoadContext } from "./load-context";
 // eslint-disable-next-line import/no-unresolved
 import __STATIC_CONTENT_MANIFEST from "__STATIC_CONTENT_MANIFEST";
 
@@ -49,10 +48,9 @@ export default {
           caches,
           env,
         },
-        session: session(env),
-        github: github(env),
       };
-      return await handleRemixRequest(request, loadContext);
+      const fullLoadContext = getLoadContext({ request, context: loadContext });
+      return await handleRemixRequest(request, fullLoadContext);
     } catch (error) {
       console.log(error);
       return new Response("An unexpected error occurred", { status: 500 });
