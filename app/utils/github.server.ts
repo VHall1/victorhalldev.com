@@ -9,6 +9,7 @@ import { restEndpointMethods } from "@octokit/plugin-rest-endpoint-methods";
 import { throttling } from "@octokit/plugin-throttling";
 import { type AppLoadContext } from "@remix-run/cloudflare";
 import { LRUCache } from "lru-cache";
+import { Buffer } from "node:buffer";
 
 const Octokit = createOctokit.plugin(restEndpointMethods, throttling);
 
