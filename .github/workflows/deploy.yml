@@ -16,8 +16,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-    needs: [changes]
-    if: needs.changes.outputs.DEPLOYABLE == 'true'
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
@@ -39,8 +37,6 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-    needs: [changes]
-    if: needs.changes.outputs.DEPLOYABLE == 'true'
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
@@ -62,8 +58,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-    needs: [changes, lint, typecheck]
-    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && needs.changes.outputs.DEPLOYABLE == 'true' }}
+    needs: [lint, typecheck]
     steps:
       - name: 📢 Discord notification
         env:
