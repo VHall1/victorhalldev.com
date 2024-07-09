@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
+    "deploy": "wrangler deploy",
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern /app/components/ui/ --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "start": "wrangler dev ./server.js",
+    "typecheck": "tsc",
+    "typegen": "wrangler types"
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.3.4",
