@@ -1,13 +1,14 @@
+import {
+  cachified,
+  totalTtl,
+  type Cache,
+  type CacheEntry,
+} from "@epic-web/cachified";
 import { Octokit as createOctokit } from "@octokit/core";
 import { restEndpointMethods } from "@octokit/plugin-rest-endpoint-methods";
 import { throttling } from "@octokit/plugin-throttling";
+import { type AppLoadContext } from "@remix-run/cloudflare";
 import { LRUCache } from "lru-cache";
-import {
-  cachified,
-  type CacheEntry,
-  type Cache,
-  totalTtl,
-} from "@epic-web/cachified";
 
 const Octokit = createOctokit.plugin(restEndpointMethods, throttling);
 
@@ -29,46 +30,55 @@ const lru: Cache = {
   },
 };
 
-const octokit = new Octokit({
-  auth: process.env.CONTENT_GITHUB_TOKEN,
-  throttle: {
-    onRateLimit: (retryAfter, options) => {
-      const method = "method" in options ? options.method : "METHOD_UNKNOWN";
-      const url = "url" in options ? options.url : "URL_UNKNOWN";
-      console.warn(
-        `Request quota exhausted for request ${method} ${url}. Retrying after ${retryAfter} seconds.`
-      );
+export default (env: Env) => {
+  new Octokit({
+    auth: env.CONTENT_GITHUB_TOKEN,
+    throttle: {
+      onRateLimit: (retryAfter, options) => {
+        const method = "method" in options ? options.method : "METHOD_UNKNOWN";
+        const url = "url" in options ? options.url : "URL_UNKNOWN";
+        console.warn(
+          `Request quota exhausted for request ${method} ${url}. Retrying after ${retryAfter} seconds.`
+        );
 
-      return true;
+        return true;
+      },
+      onSecondaryRateLimit: (_, options) => {
+        const method = "method" in options ? options.method : "METHOD_UNKNOWN";
+        const url = "url" in options ? options.url : "URL_UNKNOWN";
+        // does not retry, only logs a warning
+        console.warn(`Abuse detected for request ${method} ${url}`);
+      },
     },
-    onSecondaryRateLimit: (_, options) => {
-      const method = "method" in options ? options.method : "METHOD_UNKNOWN";
-      const url = "url" in options ? options.url : "URL_UNKNOWN";
-      // does not retry, only logs a warning
-      octokit.log.warn(`Abuse detected for request ${method} ${url}`);
-    },
-  },
-});
+  });
+};
 
-export async function downloadCMSFiles(relativeFileOrDirectory: string) {
-  const files = await downloadDirectory(`content/${relativeFileOrDirectory}`);
+export async function downloadCMSFiles(
+  github: AppLoadContext["github"],
+  relativeFileOrDirectory: string
+) {
+  const files = await downloadDirectory(
+    github,
+    `content/${relativeFileOrDirectory}`
+  );
   return files.filter(({ path }) => !path.endsWith("$schema.json"));
 }
 
 const safePath = (s: string) => s.replace(/\\/g, "/");
 async function downloadDirectory(
+  github: AppLoadContext["github"],
   dir: string
 ): Promise<{ path: string; content: string }[]> {
-  const dirList = await downloadDirList(dir);
+  const dirList = await downloadDirList(github, dir);
   const result = await Promise.all(
     dirList.map(async ({ path: fileDir, type, sha }) => {
       switch (type) {
         case "file": {
-          const content = await downloadFileBySha(sha);
+          const content = await downloadFileBySha(github, sha);
           return { path: safePath(fileDir), content };
         }
         case "dir": {
-          return downloadDirectory(fileDir);
+          return downloadDirectory(github, fileDir);
         }
         default: {
           throw new Error(`Unexpected repo file type: ${type}`);
@@ -80,14 +90,17 @@ async function downloadDirectory(
   return result.flat();
 }
 
-async function downloadFileBySha(sha: string) {
+async function downloadFileBySha(
+  github: AppLoadContext["github"],
+  sha: string
+) {
   return cachified({
     key: `file-${sha}`,
     cache: lru,
     // 15 minutes
     ttl: 1000 * 60 * 15,
     async getFreshValue() {
-      const { data } = await octokit.rest.git.getBlob({
+      const { data } = await github.rest.git.getBlob({
         owner: "vhall1",
         repo: "remix-portfolio",
         file_sha: sha,
@@ -98,14 +111,14 @@ async function downloadFileBySha(sha: string) {
   });
 }
 
-async function downloadDirList(path: string) {
+async function downloadDirList(github: AppLoadContext["github"], path: string) {
   return cachified({
     key: `dir-${path}`,
     cache: lru,
     // 15 minutes
     ttl: 1000 * 60 * 15,
     async getFreshValue() {
-      const resp = await octokit.rest.repos.getContent({
+      const resp = await github.rest.repos.getContent({
         owner: "vhall1",
         repo: "remix-portfolio",
         ref: "main",
