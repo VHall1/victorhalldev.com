@@ -82,8 +82,11 @@ jobs:
       - name: 📥 Download deps
         run: npm ci
 
+
       - name: ☁️ Deploy to Cloudflare
-        run: npm run deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: 📢 Discord notification
         env:
