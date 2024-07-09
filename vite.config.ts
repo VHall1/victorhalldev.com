@@ -1,10 +1,26 @@
-import { vitePlugin as remix } from "@remix-run/dev";
-import { installGlobals } from "@remix-run/node";
+import {
+  cloudflareDevProxyVitePlugin,
+  vitePlugin as remix,
+} from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-
-installGlobals();
+import { getLoadContext } from "./load-context";
 
 export default defineConfig({
-  plugins: [remix(), tsconfigPaths()],
+  plugins: [
+    cloudflareDevProxyVitePlugin({ getLoadContext }),
+    remix(),
+    tsconfigPaths(),
+  ],
+  ssr: {
+    resolve: {
+      conditions: ["workerd", "worker", "browser"],
+    },
+  },
+  resolve: {
+    mainFields: ["browser", "module", "main"],
+  },
+  build: {
+    minify: true,
+  },
 });

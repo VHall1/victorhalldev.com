@@ -1,3 +1,4 @@
+import { type LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Await, Link, defer, useLoaderData } from "@remix-run/react";
 import { ExternalLinkIcon } from "lucide-react";
 import { Suspense } from "react";
@@ -113,7 +114,7 @@ export default function Index() {
   );
 }
 
-export function loader() {
-  const projects = downloadCMSFiles("projects");
+export function loader({ context }: LoaderFunctionArgs) {
+  const projects = downloadCMSFiles(context.github, "projects");
   return defer({ projects });
 }

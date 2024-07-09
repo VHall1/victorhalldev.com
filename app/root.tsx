@@ -1,4 +1,4 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import {
   Links,
   Meta,
@@ -61,7 +61,7 @@ export default function App() {
   return <Outlet />;
 }
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  const theme = await getTheme(request);
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  const theme = await getTheme(request, context);
   return { theme };
 }

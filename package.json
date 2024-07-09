@@ -5,12 +5,16 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
+    "deploy": "wrangler deploy",
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern /app/components/ui/ --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "start": "wrangler dev ./server.js",
+    "tail": "wrangler tail",
+    "typecheck": "tsc",
+    "typegen": "wrangler types"
   },
   "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.3.4",
     "@epic-web/cachified": "^5.2.0",
     "@icons-pack/react-simple-icons": "^9.5.0",
     "@octokit/core": "^6.1.2",
@@ -18,9 +22,10 @@
     "@octokit/plugin-throttling": "^9.3.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
-    "@remix-run/node": "^2.10.2",
+    "@remix-run/cloudflare": "^2.10.2",
     "@remix-run/react": "^2.10.2",
     "@remix-run/serve": "^2.10.2",
+    "@remix-run/server-runtime": "^2.10.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "isbot": "^4.1.0",
@@ -38,6 +43,7 @@
     "react-dom": "$react-dom"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240620.0",
     "@remix-run/dev": "^2.10.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
@@ -54,9 +60,10 @@
     "tailwindcss": "^3.4.3",
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "wrangler": "^3.63.1"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   }
 }
