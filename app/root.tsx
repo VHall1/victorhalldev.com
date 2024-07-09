@@ -61,7 +61,7 @@ export default function App() {
   return <Outlet />;
 }
 
-export async function loader({ request }: LoaderFunctionArgs) {
-  const theme = await getTheme(request);
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  const theme = await getTheme(request, context);
   return { theme };
 }
