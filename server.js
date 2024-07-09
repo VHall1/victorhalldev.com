@@ -1,5 +1,6 @@
 import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
 import { createRequestHandler } from "@remix-run/cloudflare";
+import session from "~/utils/session.server";
 import * as remixBuild from "./build/server";
 // eslint-disable-next-line import/no-unresolved
 import __STATIC_CONTENT_MANIFEST from "__STATIC_CONTENT_MANIFEST";
@@ -47,6 +48,7 @@ export default {
           caches,
           env,
         },
+        session,
       };
       return await handleRemixRequest(request, loadContext);
     } catch (error) {
