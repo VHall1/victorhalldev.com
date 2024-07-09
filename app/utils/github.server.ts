@@ -31,7 +31,7 @@ const lru: Cache = {
 };
 
 export default (env: Env) => {
-  new Octokit({
+  return new Octokit({
     auth: env.CONTENT_GITHUB_TOKEN,
     throttle: {
       onRateLimit: (retryAfter, options) => {
