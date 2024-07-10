@@ -7,7 +7,7 @@ import {
 import { type PlatformProxy } from "wrangler";
 // this runs before vite finishes loading plugins, so have to use the full path here.
 import { type Cache } from "@epic-web/cachified";
-import { cloudflareKvCacheAdapter } from "cachified-adapter-cloudflare-kv";
+import { cloudflareKvCacheAdapter } from "~/utils/cache.server";
 import github from "./app/utils/github.server";
 import session, { type Theme } from "./app/utils/session.server";
 
