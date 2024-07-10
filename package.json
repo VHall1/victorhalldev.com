@@ -24,7 +24,6 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@remix-run/cloudflare": "^2.10.2",
     "@remix-run/react": "^2.10.2",
-    "@remix-run/serve": "^2.10.2",
     "@remix-run/server-runtime": "^2.10.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
