@@ -2,6 +2,11 @@ name = "remix-portfolio"
 
 main = "./server.js"
 workers_dev = true
+
+kv_namespaces = [
+  { binding = "__CACHE", id = "2a4f1999de384016a3325f7c765e5b73" },
+]
+
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
 compatibility_date = "2023-04-20"
 compatibility_flags = ["nodejs_compat"]
