@@ -48,7 +48,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={cn({ dark: theme === "dark" })}>
+      <body className={cn({ dark: theme === "dark" })} suppressHydrationWarning>
         {children}
         <ScrollRestoration />
         {disableScripts ? null : <Scripts />}
