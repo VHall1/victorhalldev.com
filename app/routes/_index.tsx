@@ -115,6 +115,6 @@ export default function Index() {
 }
 
 export function loader({ context }: LoaderFunctionArgs) {
-  const projects = downloadCMSFiles(context.github, "projects");
+  const projects = downloadCMSFiles(context, "projects");
   return defer({ projects });
 }
