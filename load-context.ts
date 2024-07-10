@@ -1,3 +1,4 @@
+import { type Cache } from "@epic-web/cachified";
 import { type Octokit } from "@octokit/core";
 import { type Api } from "@octokit/plugin-rest-endpoint-methods";
 import {
@@ -5,9 +6,9 @@ import {
   type SessionStorage,
 } from "@remix-run/cloudflare";
 import { type PlatformProxy } from "wrangler";
-// this runs before vite finishes loading plugins, so have to use the full path here.
-import { type Cache } from "@epic-web/cachified";
-import { cloudflareKvCacheAdapter } from "~/utils/cache.server";
+
+// this runs before vite loads plugins, so have to use the full path here.
+import { cloudflareKvCacheAdapter } from "./app/utils/cache.server";
 import github from "./app/utils/github.server";
 import session, { type Theme } from "./app/utils/session.server";
 
