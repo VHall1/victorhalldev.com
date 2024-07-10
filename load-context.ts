@@ -6,6 +6,8 @@ import {
 } from "@remix-run/cloudflare";
 import { type PlatformProxy } from "wrangler";
 // this runs before vite finishes loading plugins, so have to use the full path here.
+import { type Cache } from "@epic-web/cachified";
+import { cloudflareKvCacheAdapter } from "cachified-adapter-cloudflare-kv";
 import github from "./app/utils/github.server";
 import session, { type Theme } from "./app/utils/session.server";
 
@@ -18,6 +20,7 @@ declare module "@remix-run/cloudflare" {
       theme: Theme;
     }>;
     github: Octokit & Api;
+    kv: Cache;
   }
 }
 
@@ -31,6 +34,7 @@ export const getLoadContext: GetLoadContext = ({ context }) => {
   const env = context.cloudflare.env;
   return {
     ...context,
+    kv: cloudflareKvCacheAdapter({ kv: env.__CACHE }),
     session: session(env),
     github: github(env),
   };
