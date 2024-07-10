@@ -1,35 +1,11 @@
-import {
-  cachified,
-  totalTtl,
-  type Cache,
-  type CacheEntry,
-} from "@epic-web/cachified";
+import { cachified } from "@epic-web/cachified";
 import { Octokit as createOctokit } from "@octokit/core";
 import { restEndpointMethods } from "@octokit/plugin-rest-endpoint-methods";
 import { throttling } from "@octokit/plugin-throttling";
 import { type AppLoadContext } from "@remix-run/cloudflare";
-import { LRUCache } from "lru-cache";
 import { Buffer } from "node:buffer";
 
 const Octokit = createOctokit.plugin(restEndpointMethods, throttling);
-
-const lruInstance = new LRUCache<string, CacheEntry>({ max: 1000 });
-
-const lru: Cache = {
-  set(key, value) {
-    const ttl = totalTtl(value?.metadata);
-    return lruInstance.set(key, value, {
-      ttl: ttl === Infinity ? undefined : ttl,
-      start: value?.metadata?.createdTime,
-    });
-  },
-  get(key) {
-    return lruInstance.get(key);
-  },
-  delete(key) {
-    return lruInstance.delete(key);
-  },
-};
 
 export default (env: Env) => {
   return new Octokit({
@@ -60,7 +36,7 @@ export async function downloadCMSFiles(
   context: AppLoadContext,
   relativeFileOrDirectory: string
 ) {
-  const { github } = context;
+  const { github, kv } = context;
 
   async function downloadDirectory(
     dir: string
@@ -89,7 +65,7 @@ export async function downloadCMSFiles(
   async function downloadDirList(path: string) {
     return cachified({
       key: `dir-${path}`,
-      cache: lru,
+      cache: kv,
       // 15 minutes
       ttl: 1000 * 60 * 15,
       async getFreshValue() {
@@ -118,7 +94,7 @@ export async function downloadCMSFiles(
   async function downloadFileBySha(sha: string) {
     return cachified({
       key: `file-${sha}`,
-      cache: lru,
+      cache: kv,
       // 15 minutes
       ttl: 1000 * 60 * 15,
       async getFreshValue() {
