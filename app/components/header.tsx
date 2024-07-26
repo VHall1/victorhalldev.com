@@ -1,7 +1,12 @@
 import { Link } from "@remix-run/react";
-import { Button } from "@victorhalldev/react";
+import {
+  Button,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "@victorhalldev/react";
 import { CodeIcon, MenuIcon } from "lucide-react";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 
 export function Header() {
   return (
