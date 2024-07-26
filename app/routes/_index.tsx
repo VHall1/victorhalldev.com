@@ -1,9 +1,9 @@
 import { type LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Await, Link, defer, useLoaderData } from "@remix-run/react";
+import { Button } from "@victorhalldev/react";
 import { ExternalLinkIcon } from "lucide-react";
 import { Suspense } from "react";
 import { Shell } from "~/components/shell";
-import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
