@@ -58,23 +58,12 @@ export default function Index() {
                       description: string;
                       demo: string;
                       source: string;
-                      image?: string;
                     };
                     return (
                       <Card
                         key={`projects-${parsedProject.source}`}
                         className="transition-all hover:scale-[1.02] hover:shadow-md overflow-hidden flex flex-col"
                       >
-                        {parsedProject.image ? (
-                          <img
-                            src={parsedProject.image}
-                            className="aspect-[16/10]"
-                            alt=""
-                            width={433}
-                            height={270}
-                            loading="lazy"
-                          />
-                        ) : null}
                         <CardContent className="py-4">
                           <CardTitle>{parsedProject.title}</CardTitle>
                           <CardDescription className="mt-2">

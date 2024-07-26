@@ -3,6 +3,5 @@
   "title": "⛅ Remix Weather",
   "description": "Simple weather app. Built with Remix and OpenWeatherMap.",
   "demo": "https://weather.victorhalldev.com",
-  "source": "https://github.com/VHall1/remix-weather",
-  "image": "https://res.cloudinary.com/davlbxibi/image/upload/v1716678723/remix-portfolio/klv89vxnmqccbtmsk5xp.png"
+  "source": "https://github.com/VHall1/remix-weather"
 }

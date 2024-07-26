@@ -11,10 +11,6 @@
     },
     "source": {
       "type": "string"
-    },
-    "image": {
-      "type": "string",
-      "optional": true
     }
   }
 }
