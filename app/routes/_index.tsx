@@ -1,16 +1,16 @@
 import { type LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Await, Link, defer, useLoaderData } from "@remix-run/react";
-import { ExternalLinkIcon } from "lucide-react";
-import { Suspense } from "react";
-import { Shell } from "~/components/shell";
-import { Button } from "~/components/ui/button";
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardTitle,
-} from "~/components/ui/card";
+} from "@victorhalldev/react";
+import { ExternalLinkIcon } from "lucide-react";
+import { Suspense } from "react";
+import { Shell } from "~/components/shell";
 import { downloadCMSFiles } from "~/utils/github.server";
 
 export default function Index() {

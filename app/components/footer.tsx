@@ -1,8 +1,8 @@
 import { SiGithub, SiLinkedin } from "@icons-pack/react-simple-icons";
 import { Link, useFetcher, useRouteLoaderData } from "@remix-run/react";
+import { Button } from "@victorhalldev/react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import type { loader } from "~/root";
-import { Button } from "./ui/button";
 
 export function Footer() {
   const themeFetcher = useFetcher({ key: "theme" });

@@ -1,7 +1,13 @@
 import { Link } from "@remix-run/react";
-import { CodeIcon, MenuIcon } from "lucide-react";
-import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import {
+  Button,
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTrigger,
+} from "@victorhalldev/react";
+import { CodeIcon, MenuIcon, XIcon } from "lucide-react";
 
 export function Header() {
   return (
@@ -38,6 +44,10 @@ export function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent>
+            <SheetClose>
+              <XIcon className="h-4 w-4" />
+              <span className="sr-only">Close</span>
+            </SheetClose>
             <SheetHeader>
               <Link className="flex items-center gap-2" to="/#hero">
                 <CodeIcon className="h-6 w-6" />
