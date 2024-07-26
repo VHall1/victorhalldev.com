@@ -16,8 +16,8 @@ import { cn } from "./utils/cn";
 import { getTheme } from "./utils/session.server";
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: twStyles },
   { rel: "stylesheet", href: libStyles },
+  { rel: "stylesheet", href: twStyles },
   {
     rel: "icon",
     href: "https://res.cloudinary.com/davlbxibi/image/upload/v1716409614/remix-portfolio/byw1g36xmmfgv1di8m5h.png",
