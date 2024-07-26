@@ -9,8 +9,8 @@ import {
   useMatches,
   useRouteLoaderData,
 } from "@remix-run/react";
+import tailwindStyles from "@victorhalldev/react/theme.css?url";
 import type { CustomHandle } from "types";
-import tailwindStyles from "./styles/tailwind.css?url";
 import { cn } from "./utils/cn";
 import { getTheme } from "./utils/session.server";
 
