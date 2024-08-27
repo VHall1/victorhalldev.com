@@ -3,10 +3,11 @@ import { Link, useFetcher, useRouteLoaderData } from "@remix-run/react";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import type { loader } from "~/root";
+import type { action } from "~/routes/action.set-theme";
 import { Separator } from "./ui/separator";
 
 export function Footer() {
-  const themeFetcher = useFetcher({ key: "theme" });
+  const themeFetcher = useFetcher<typeof action>({ key: "theme" });
   const rootLoaderData = useRouteLoaderData<typeof loader>("root");
   const theme =
     themeFetcher?.formData?.get("nextTheme")?.toString() ??
