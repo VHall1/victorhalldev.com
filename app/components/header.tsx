@@ -1,13 +1,13 @@
 import { Link } from "@remix-run/react";
+import { CodeIcon, MenuIcon, XIcon } from "lucide-react";
+import { Button } from "./ui/button";
 import {
-  Button,
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from "@victorhalldev/react";
-import { CodeIcon, MenuIcon, XIcon } from "lucide-react";
+} from "./ui/sheet";
 
 export function Header() {
   return (
