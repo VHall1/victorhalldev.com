@@ -13,6 +13,7 @@
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": [
       "@remix-run/cloudflare",
+      "@remix-run/react/future/single-fetch.d.ts",
       "@cloudflare/workers-types",
       "vite/client"
     ],
