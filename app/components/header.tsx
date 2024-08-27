@@ -1,18 +1,18 @@
 import { Link } from "@remix-run/react";
+import { CodeIcon, MenuIcon } from "lucide-react";
+import { Button } from "./ui/button";
 import {
-  Button,
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from "@victorhalldev/react";
-import { CodeIcon, MenuIcon, XIcon } from "lucide-react";
+} from "./ui/sheet";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container max-w-screen-xl h-14 flex items-center justify-between">
+    <header className="fixed w-full top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container h-16 flex items-center justify-between">
         {/* Left */}
         <Link className="flex items-center gap-2" to="/#hero">
           <CodeIcon className="h-6 w-6" />
@@ -26,6 +26,12 @@ export function Header() {
             to="/#hero"
           >
             Home
+          </Link>
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
+            to="/#about"
+          >
+            About
           </Link>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
@@ -45,7 +51,6 @@ export function Header() {
           </SheetTrigger>
           <SheetContent>
             <SheetClose>
-              <XIcon className="h-4 w-4" />
               <span className="sr-only">Close</span>
             </SheetClose>
             <SheetHeader>
@@ -60,6 +65,12 @@ export function Header() {
                 to="/#hero"
               >
                 Home
+              </Link>
+              <Link
+                className="text-sm font-medium hover:underline underline-offset-4"
+                to="/#about"
+              >
+                About
               </Link>
               <Link
                 className="text-sm font-medium hover:underline underline-offset-4"
