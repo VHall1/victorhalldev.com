@@ -11,8 +11,8 @@ import {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container max-w-screen-xl h-14 flex items-center justify-between">
+    <header className="fixed w-full top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container h-16 flex items-center justify-between">
         {/* Left */}
         <Link className="flex items-center gap-2" to="/#hero">
           <CodeIcon className="h-6 w-6" />
