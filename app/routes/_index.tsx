@@ -40,6 +40,7 @@ export default function Index() {
 
       <Separator />
 
+      {/* TODO: move this data to some sort of CMS */}
       <section className="container py-8 lg:py-20 px-6" id="about">
         <h2 className="text-3xl pb-10 font-semibold tracking-tight">
           Experience
