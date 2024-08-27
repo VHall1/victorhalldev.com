@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { CodeIcon, MenuIcon, XIcon } from "lucide-react";
+import { CodeIcon, MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -45,7 +45,6 @@ export function Header() {
           </SheetTrigger>
           <SheetContent>
             <SheetClose>
-              <XIcon className="h-4 w-4" />
               <span className="sr-only">Close</span>
             </SheetClose>
             <SheetHeader>
