@@ -32,7 +32,7 @@ export default function Index() {
               I&apos;m a Full Stack Developer and a React enthusiast
             </p>
             <Button size="lg" asChild>
-              <Link to="#projects">View Projects</Link>
+              <Link to="#about">Learn more</Link>
             </Button>
           </div>
         </div>
