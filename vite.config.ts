@@ -14,7 +14,10 @@ export default defineConfig({
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,
         v3_throwAbortReason: true,
+        // single fetch
         unstable_singleFetch: true,
+        // fog of war
+        unstable_lazyRouteDiscovery: true,
       },
     }),
     tsconfigPaths(),
