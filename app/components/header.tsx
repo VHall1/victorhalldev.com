@@ -29,6 +29,12 @@ export function Header() {
           </Link>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
+            to="/#about"
+          >
+            About
+          </Link>
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
             to="/#projects"
           >
             Projects
@@ -59,6 +65,12 @@ export function Header() {
                 to="/#hero"
               >
                 Home
+              </Link>
+              <Link
+                className="text-sm font-medium hover:underline underline-offset-4"
+                to="/#about"
+              >
+                About
               </Link>
               <Link
                 className="text-sm font-medium hover:underline underline-offset-4"
