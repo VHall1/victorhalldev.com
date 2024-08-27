@@ -9,14 +9,12 @@ import {
   useMatches,
   useRouteLoaderData,
 } from "@remix-run/react";
-import libStyles from "@victorhalldev/react/theme.css?url";
 import type { CustomHandle } from "types";
 import twStyles from "./tw.css?url";
 import { cn } from "./utils/cn";
 import { getTheme } from "./utils/session.server";
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: libStyles },
   { rel: "stylesheet", href: twStyles },
   {
     rel: "icon",
