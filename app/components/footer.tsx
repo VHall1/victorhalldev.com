@@ -1,7 +1,11 @@
-import { SiGithub, SiLinkedin } from "@icons-pack/react-simple-icons";
+import {
+  GitHubLogoIcon,
+  LinkedInLogoIcon,
+  MoonIcon,
+  SunIcon,
+} from "@radix-ui/react-icons";
 import { Link, useFetcher, useRouteLoaderData } from "@remix-run/react";
 import { Button } from "@victorhalldev/react";
-import { MoonIcon, SunIcon } from "lucide-react";
 import type { loader } from "~/root";
 
 export function Footer() {
@@ -23,14 +27,14 @@ export function Footer() {
             className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50 mr-4"
             to="https://github.com/vhall1"
           >
-            <SiGithub className="h-5 w-5" />
+            <GitHubLogoIcon className="h-5 w-5" />
             <span className="sr-only">GitHub</span>
           </Link>
           <Link
             className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50 mr-1"
             to="https://linkedin.com/in/vhall1/"
           >
-            <SiLinkedin className="h-5 w-5" />
+            <LinkedInLogoIcon className="h-5 w-5" />
             <span className="sr-only">LinkedIn</span>
           </Link>
           <themeFetcher.Form

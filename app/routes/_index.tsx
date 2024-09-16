@@ -1,3 +1,4 @@
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { type LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Await, Link, defer, useLoaderData } from "@remix-run/react";
 import {
@@ -8,7 +9,6 @@ import {
   CardFooter,
   CardTitle,
 } from "@victorhalldev/react";
-import { ExternalLinkIcon } from "lucide-react";
 import { Suspense } from "react";
 import { Shell } from "~/components/shell";
 import { downloadCMSFiles } from "~/utils/github.server";

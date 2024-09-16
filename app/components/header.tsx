@@ -1,3 +1,4 @@
+import { CodeIcon, Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import {
   Button,
@@ -7,7 +8,6 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@victorhalldev/react";
-import { CodeIcon, MenuIcon, XIcon } from "lucide-react";
 
 export function Header() {
   return (
@@ -39,13 +39,13 @@ export function Header() {
         <Sheet>
           <SheetTrigger asChild>
             <Button size="icon" variant="outline" className="md:hidden">
-              <MenuIcon className="h-6 w-6" />
+              <HamburgerMenuIcon className="h-4 w-4" />
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </SheetTrigger>
           <SheetContent>
             <SheetClose>
-              <XIcon className="h-4 w-4" />
+              <Cross2Icon className="h-4 w-4" />
               <span className="sr-only">Close</span>
             </SheetClose>
             <SheetHeader>
